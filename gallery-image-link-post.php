@@ -12,12 +12,12 @@
  * @package         Gallery_Image_Link_Post
  */
 
-function sample_admin_bar( $wp_admin_bar ){
-	$wp_admin_bar->add_menu( array(
-			'id' =>"sample-menu",
-			'title' => "お試し"
-		)
-	);
+function gilt_test( $content, $block ){
+	if( $block['blockName'] === 'core/gallery' ){
+		var_dump( $block );
+		return $block;
+	}
+	return $block;
 }
+add_filter( 'render_block', 'gilt_test', 10, 2 );
 
-add_action('admin_bar_menu', 'sample_admin_bar', 9999);

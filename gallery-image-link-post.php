@@ -12,12 +12,12 @@
  * @package         Gallery_Image_Link_Post
  */
 
-function sample_admin_bar( $wp_admin_bar ){
-	$wp_admin_bar->add_menu( array(
-			'id' =>"sample-menu",
-			'title' => "お試し"
-		)
+function gilt_guten_enqueue(){
+	wp_enqueue_script(
+		'gallery-image-link-post',
+		plugins_url( 'gilt.js', __FILE__ ),
+		array( 'wp-rich-text', 'wp-element', 'wp-editor', 'wp-compose', 'wp-data' ),
+		filemtime( plugin_dir_path( __FILE__ ) . '/gilt.js' )
 	);
 }
-
-add_action('admin_bar_menu', 'sample_admin_bar', 9999);
+add_action( 'enqueue_block_editor_assets', 'gilt_guten_enqueue' );

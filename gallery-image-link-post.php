@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name:     Gallery Image Link Post
- * Plugin URI:      PLUGIN SITE HERE
+ * Plugin URI:      https://github.com/akiya64/gallery-image-link-post
  * Description:     ギャラリーのリンクに投稿へのリンクを追加します
  * Author:          Akiya Kasumi
- * Author URI:      YOUR SITE HERE
+ * Author URI:      https://github.com/akiya64/gallery-image-link-post
  * Text Domain:     gallery-image-link-post
  * Domain Path:     /languages
  * Version:         0.1.0

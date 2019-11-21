@@ -1,11 +1,8 @@
-function replaceGalleryImageHref( element ) {
+function replaceGalleryImageHref( element, block, attributes ) {
 
-	if( element.props['className'].indexOf('wp-block-gallery') != -1
-		&& element.props.children.length !=0 ){
-		var ul = element.props.children[0].props;
-		ul.children[0].props.children.props.children[0].props['href'] = 'http://wocker.test';
+	if( block.name === 'core/gallery' && attributes.linkTo === 'attachment' ){
 
-		console.dir( ul );
+        element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = 'http://wocker.test';
 	}
 
 	return element;

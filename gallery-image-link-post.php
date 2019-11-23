@@ -12,12 +12,12 @@
  * @package         Gallery_Image_Link_Post
  */
 
-function gilt_guten_enqueue(){
+function gilp_guten_enqueue(){
 	wp_enqueue_script(
 		'gallery-image-link-post',
-		plugins_url( 'gilt.js', __FILE__ ),
+		plugins_url( 'gilp.js', __FILE__ ),
 		array( 'wp-rich-text', 'wp-element', 'wp-editor', 'wp-compose', 'wp-data' ),
-		filemtime( plugin_dir_path( __FILE__ ) . '/gilt.js' )
+		filemtime( plugin_dir_path( __FILE__ ) . '/gilp.js' )
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'gilt_guten_enqueue' );
+add_action( 'enqueue_block_editor_assets', 'gilp_guten_enqueue' );

@@ -16,7 +16,7 @@ function gilp_guten_enqueue(){
 	wp_enqueue_script(
 		'gallery-image-link-post',
 		plugins_url( 'gilp.js', __FILE__ ),
-		array( 'wp-rich-text', 'wp-element', 'wp-editor', 'wp-compose', 'wp-data' ),
+		array( 'wp-element', 'wp-api-fetch' ),
 		filemtime( plugin_dir_path( __FILE__ ) . '/gilp.js' )
 	);
 }

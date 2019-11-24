@@ -1,40 +1,35 @@
 function replaceGalleryImageHref( element, block, attributes ) {
-	if( block.name === 'core/gallery'
-		&& attributes.linkTo === 'attachment'){
 
-		return replaceList( element )
+	return replaceUl( element, block, attributes );
 
-	} else {
-
-		return element;
-
-	}
 }
 
-// iterate type li className blocks-gallery-item
-async function replaceList( element ){
+function replaceUl( element, block, attributes ){
 
-	for( item of element.props.children[0].props.children ){
+	if( block.name === 'core/gallery'
+		&& attributes.linkTo === 'attachment' ){
 
-		var imageId =item.props.children.props.children[0].props.children.props['data-id'];
-		item.props.children.props.children[0].props['href'] = fetchPostUrl( imageId );
+		for( item of element.props.children[0].props.children ){
 
+			const imageId = item.props.children.props.children[0].props.children.props['data-id'];
+			fetchParentUrl( imageId ).then( url => {
+				item.props.children.props.children[0].props['href'] = url;
+			} );
+
+		}
 	}
 
 	return element;
 
 }
 
-function fetchPostUrl( imageId ){
-	wp.apiFetch( { path: '/wp/v2/media/' + imageId } )
-		.then( function ( media ){
-			wp.apiFetch( { path: '/wp/v2/posts/' + media['post'] } )
-				.then( function ( post ){
-					console.log( post.link );
-					return post.link;
-				})
-			});
+async function fetchParentUrl( imageId ){
+	const imageJson = await wp.apiFetch( { path: '/wp/v2/media/' + imageId } );
+	const postJson = await wp.apiFetch( { path: '/wp/v2/posts/' + imageJson['post'] } );
+
+	return postJson['link'];
 }
+
 
 wp.hooks.addFilter(
     'blocks.getSaveElement',

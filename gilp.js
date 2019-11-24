@@ -1,22 +1,21 @@
 function replaceGalleryImageHref( element, block, attributes ) {
 
-	return replaceUl( element, block, attributes );
+	return replaceUl( element, block, attributes ).then( result => {
+		return result;
+	} );
 
 }
 
-function replaceUl( element, block, attributes ){
+async function replaceUl( element, block, attributes ){
 
 	if( block.name === 'core/gallery'
 		&& attributes.linkTo === 'attachment' ){
 
-		for( item of element.props.children[0].props.children ){
+			const imageId = element.props.children[0].props.children[0]['key'];
+			const url = await fetchParentUrl( imageId );
 
-			const imageId = item.props.children.props.children[0].props.children.props['data-id'];
-			fetchParentUrl( imageId ).then( url => {
-				item.props.children.props.children[0].props['href'] = url;
-			} );
-
-		}
+			console.log( element );
+			element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = url + '/';
 	}
 
 	return element;

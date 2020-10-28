@@ -7,19 +7,18 @@ function replaceGalleryImageHref( element, block, attributes ) {
 }
 
 async function replaceUl( element, block, attributes ){
-
-	if( block.name === 'core/gallery'
-		&& attributes.linkTo === 'attachment' ){
-
-			const imageId = element.props.children[0].props.children[0]['key'];
-			const url = await fetchParentUrl( imageId );
-
-			console.log( element );
-			element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = url + '/';
+	console.log( attributes );
+	if( block.name !== 'core/gallery'
+		|| attributes.linkTo !== 'attachment' ){
+			return element;
 	}
 
-	return element;
+	const imageId = element.props.children[0].props.children[0]['key'];
+	const url = await fetchParentUrl( imageId );
 
+	element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = url + '/';
+
+	return element;
 }
 
 async function fetchParentUrl( imageId ){

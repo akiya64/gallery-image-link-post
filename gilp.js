@@ -1,23 +1,28 @@
 function replaceGalleryImageHref( element, block, attributes ) {
 
-	return replaceUl( element, block, attributes ).then( result => {
-		return result;
-	} );
+    if( block.name === 'core/gallery'
+        && attributes.linkTo === 'attachment'
+        && element.props.children.length > 0 ){
+			return replaceHref( element, block, attributes ).then( element => {
+				console.log( element );
+				return element;
+			} );
+	}
+
+	return element;
 
 }
 
-async function replaceUl( element, block, attributes ){
-	console.log( attributes );
-	if( block.name !== 'core/gallery'
-		|| attributes.linkTo !== 'attachment' ){
-			return element;
-	}
+async function replaceHref( element, block, attributes ){
 
-	const imageId = element.props.children[0].props.children[0]['key'];
+	const liElement = element.props.children[0].props.children[0];
+	const aProps = liElement.props.children.props.children[0].props;
+
+	const imageId = liElement.key;
+
 	const url = await fetchParentUrl( imageId );
 
-	element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = url + '/';
-
+	element.props.children[0].props.children[0].props.children.props.children[0].props['href'] = url;
 	return element;
 }
 
